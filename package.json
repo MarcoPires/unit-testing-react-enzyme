@@ -6,7 +6,7 @@
   "scripts": {
     "build": "browserify src/index.js -o public/bundle.js -t [babelify]",
     "simple-server": "cd public && live-server --port=1234 --entry-file=index.html",
-    "test": "tape ./test/*.js"
+    "test": "tape ./test/.setup.js ./test/*.js"
   },
   "repository": {
     "type": "git",
