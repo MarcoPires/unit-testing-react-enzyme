@@ -46,6 +46,12 @@ $ npm run build
 $ npm run simple-server
 ```
 
+## Start testing environment
+
+```
+$ npm test
+```
+
 ## References
 * [Tutsplus - Unit Testing React Components](https://code.tutsplus.com/courses/unit-testing-react-components)
 * [Original Github project - unit-testing-react-components](https://github.com/tutsplus/unit-testing-react-components/)

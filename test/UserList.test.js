@@ -1,10 +1,14 @@
 import React from 'react';
 import test  from 'tape';
-import { shallow, render } from 'enzyme';
+import { shallow, render, mount } from 'enzyme';
+import { spy }   from 'sinon';
+import { jsdom } from 'jsdom';
 
 
 import UserList from '../src/UserList';
 
+//This will create a virtual dom like html dom, so we can render like a browser.
+global.window = global.document = jsdom();
 
 const userData = [{
     name: 'Steve'
@@ -36,7 +40,7 @@ test('<UserList /> renders correctly', function(t){
     t.end();
 });
 
-test('<UserList /> can filter users', function(t){
+test('<UserList /> calls shouldComponentUpdate', function(t){
     let wrapper = shallow(<UserList users = { userData }/>);
 
     t.equal( wrapper.state('filter'),'', 
@@ -49,6 +53,20 @@ test('<UserList /> can filter users', function(t){
     t.notEqual( wrapper.find('User').length, userData.length, 
         ('Filtered state: does not show all users -> ' + wrapper.find('User').length + '/' + userData.length)  );
     
+    t.end();
+});
 
+test('<UserList /> can filter users', function(t){
+    spy(UserList.prototype, 'shouldComponentUpdate');
+
+    let wrapper = mount(<UserList users = { userData }/>);
+    let shouldComponentUpdate = UserList.prototype.shouldComponentUpdate;
+    
+    t.equal( shouldComponentUpdate.callCount, 0,
+        ('No calls yet -> ' + shouldComponentUpdate.callCount) );
+    
+    t.equal( (wrapper.setState({ filter: 'e' }) && shouldComponentUpdate.callCount), 1,
+        ('Called when state changed -> ' + shouldComponentUpdate.callCount) );
+    
     t.end();
 });

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "browserify src/index.js -o public/bundle.js -t [babelify]",
     "simple-server": "cd public && live-server --port=1234 --entry-file=index.html",
-    "test": "tape ./test/.setup.js ./test/*.js"
+    "test": "tape ./test/.setup.js ./test/*.js | faucet"
   },
   "repository": {
     "type": "git",
@@ -29,9 +29,12 @@
     "babelify": "^7.3.0",
     "browserify": "^13.1.1",
     "enzyme": "^2.7.0",
+    "faucet": "0.0.1",
+    "jsdom": "^9.9.1",
     "live-server": "^1.1.0",
     "react-addons-test-utils": "^15.4.1",
     "simple-server": "^1.0.1",
+    "sinon": "^1.17.6",
     "tape": "^4.6.3"
   }
 }
